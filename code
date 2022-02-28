@@ -1,0 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Bird : MonoBehaviour
+{
+    public float Force;
+    Rigidbody2D BirgdRigid;
+
+    void Start()
+    {
+        Time.timeScale = 1;
+        BirgdRigid = GetComponent<Rigidbody2D>();
+    }
+
+    void Update()
+    {
+        if(Input.GetButtonDown("Jump"))
+        {
+            BirgdRigid.velocity = Vector2.up * Force;
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.tag == "Enemy")
+        {
+            Destroy(gameObject);
+            Time.timeScale = 0;
+        }
+    }
+}
